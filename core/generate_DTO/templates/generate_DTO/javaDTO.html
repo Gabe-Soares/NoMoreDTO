@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>No More DTO</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
+    <script src="{% static 'js/javaDTO.js' %}"></script>
+</head>
+<body>
+      <form action="/generate" method="post" onsubmit="return validatePayload();">
+      {% csrf_token %}
+
+       <div class="form-group">
+          <input type="checkbox" id="package" name="package" value="set_package" onchange="setPackageChangeStatus(this)">
+          <label for="package"> Set package name.</label><br>
+
+          <label for="package_name"> Package:</label>
+          <input type="text" id="package_name" name="package_name" disabled><br/>
+      </div>
+
+       <div class="form-group">
+          <input type="checkbox" id="json_properties" name="json_properties" value="json_properties">
+          <label for="json_properties"> Use @JsonProperties("") notation.</label><br>
+      </div>
+
+      <div class="form-group">
+          <label for="json">API JSON:</label>
+          <textarea class="form-control" id="json" name="json" rows="4" cols="50"></textarea>
+      </div>
+
+      <div class="form-group">
+          <label>Select output:</label><br/>
+          <div>
+              <input type="radio" name="output" id="browser_radio" value="browser" onclick="changeOutputRadio(this);" checked/><label for="browser_radio">Browser</label><br/>
+              <input type="radio" name="output" id="file_radio" value="file" onclick="changeOutputRadio(this);"/><label for="file_radio">File</label>
+              <label for="file_directory"> Output directory:</label>
+              <input type="text" id="file_directory" name="file_directory" disabled><br/>
+          </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Generate</button>
+    </form>
+</body>
+</html>

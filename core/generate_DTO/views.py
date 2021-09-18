@@ -1,11 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def index(request):
-    variable = "Hello, world. You're at the generate_DTO index."
+    return render(request, 'generate_DTO/index.html')
 
-    context = {
-        'variable': variable,
-    }
 
-    return render(request, 'generate_DTO/index.html', context)
+def javaDTO(request):
+    return render(request, 'generate_DTO/javaDTO.html')
+
+
+def generate(request):
+    if request.method == "POST":
+        dto = request.POST['json']
+
+        context = {
+            'dto': dto,
+        }
+
+        return render(request, 'generate_DTO/result.html', context)
+    else:
+        return redirect('')
